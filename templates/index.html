@@ -37,35 +37,18 @@
                     success: function(response) {
                         let html = '';
                         response.results.forEach((paper, index) => {
-                            let abstract = paper.abstract;
-                            let shortAbstract = abstract.split(' ').slice(0, 40).join(' ') + '...'; // Show only first 40 words
-        
                             html += `<div class="card my-2 p-3">
                                         <h5>${paper.title}</h5>
+                                        <p><strong>Author:</strong> ${paper.author}</p>
+                                        <p><strong>Publication Year:</strong> ${paper.year}</p>
                                         <a href="${paper.link}" target="_blank">View Paper</a>
-                                        <p class="abstract">${shortAbstract}</p>
-                                        <span class="btn-read-more" data-full="${abstract}">Read more</span>
+                                        <p class="abstract">${paper.abstract}</p>
                                     </div>`;
                         });
         
                         $('#results').html(html);
                     }
                 });
-            });
-        
-            // Fix Read More functionality
-            $(document).on('click', '.btn-read-more', function() {
-                let fullAbstract = $(this).data('full');
-                let abstractElement = $(this).prev('.abstract');
-        
-                if ($(this).text() === 'Read more') {
-                    abstractElement.text(fullAbstract);
-                    $(this).text('Read less');
-                } else {
-                    let shortAbstract = fullAbstract.split(' ').slice(0, 40).join(' ') + '...';
-                    abstractElement.text(shortAbstract);
-                    $(this).text('Read more');
-                }
             });
         });
         
